@@ -5,7 +5,7 @@
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) 
 ![Kubuntu](https://img.shields.io/badge/-KUbuntu-%230079C1?style=for-the-badge&logo=kubuntu&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
-![Last Commit](https://img.shields.io/github/last-commit/ciro-mota/padavan-collection?style=for-the-badge)
+![Last Commit](https://img.shields.io/github/last-commit/ciro-mota/firefox-desnap?style=for-the-badge)
 
 O Ubuntu em sua versão 22.04 trouxe a proposta do Firefox através do formado em Snap como o padrão para as suas instalações e de algumas de suas flavours. O propósito deste Git é a instalação do Firefox em versão mais atual no Ubuntu e Kubuntu através do download direto da própria Mozilla, com atualizações no próprio navegador.
 
