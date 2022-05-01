@@ -5,21 +5,28 @@
 ![Shell Script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) 
 ![Kubuntu](https://img.shields.io/badge/-KUbuntu-%230079C1?style=for-the-badge&logo=kubuntu&logoColor=white)
+![Lubuntu](https://img.shields.io/badge/-Lubuntu-%230065C2?style=for-the-badge&logo=lubuntu&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white)
 ![Last Commit](https://img.shields.io/github/last-commit/ciro-mota/firefox-desnap?style=for-the-badge)
 
-Ubuntu in its version 22.04 brought the Firefox proposal through the Snap format as the default for its installations and some of its flavors. The purpose of this Git is to install Firefox in the most current version on Ubuntu and Kubuntu through a direct download from Mozilla itself, with updates in the browser itself.
+## Proposal
 
-Script will download, depending on the user's choice, the English or Brazilian Portuguese versions. You can comment these entries and adapt the script to your language.
+Ubuntu in its version 22.04 brought the Firefox proposal through the Snap format as the default for its installations and some of its flavors. The purpose of this Git is to install Firefox in the most current version on these distros through a direct download from Mozilla, with updates in the browser itself.
 
-Other flavors, if necessary, will be added later.
+Script will download the Firefox depending of locale setting of your system language. You can check that typing `locale | head -1`.
 
-This script can also be used in Debian Stable or Testing with DE GNOME or Plasma.
+This script soon can also be used in Debian Stable or Testing.
 
 **This script is under development, errors are expected.**
 
-## Before running
+## Notes
 
-You will need to uninstall the Snap version of Firefox, although both versions can coexist on the same system. Run `snap remove firefox` to remove.
+This script will be check if Firefox Snap is installed an will be remove it. And then will download and install version on tarball of Mozilla servers.
 
-The Script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
+In addition, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
+
+## Execution
+
+- `git clone` this repo.
+- Give execution permissions on **Firefox-DeSnap.sh**
+- `./Firefox-DeSnap` to execute.
