@@ -4,69 +4,27 @@
 ## NAME:
 ### 	Firefox-DeSnap.sh.
 ## DESCRIPTION:
-###			Install Firefox Not Snap in the most current version on Ubuntu and Kubuntu.
+###			Install Firefox Not Snap in the most current version on Ubuntu and your Flavours.
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 25/04/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 01/05/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
-### Download Links.
-url_firefox_br="https://ftp.mozilla.org/pub/firefox/releases/99.0.1/linux-x86_64/pt-BR/firefox-99.0.1.tar.bz2"
-url_firefox_en="https://ftp.mozilla.org/pub/firefox/releases/99.0.1/linux-x86_64/en-US/firefox-99.0.1.tar.bz2"
+### Variables.
+your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' | tr "_" "-")"
+snap_exist="$(snap list 2> /dev/null | grep firefox | awk '{print $1}')"
 
-# ---------------------------------------------------------------------------------------------------- #
-# ------------------------------------------ TEST AND EXECUTION -------------------------------------- #
-### Check GNOME or Plasma.
-if [[ $(gnome-shell --version | awk '{print $1}') = "GNOME" ]] >/dev/null 2>&1;
-then        
-      echo ""
-	echo -e "\e[32;1mGNOME Detected. Continuing script...\e[m"
-	echo ""
-elif [[ $(plasmashell --version | awk '{print $1}') = "plasmashell" ]] >/dev/null 2>&1;
-then
-      echo ""
-	echo -e "\e[32;1mPlasma Detected. Continuing script...\e[m"
-	echo ""
-else
-      echo ""
-      echo -e "\e[31;1mDE not supported by this script.\e[m"
-	exit 1
-fi	
-
-# ------------------------------------------------------------------------------------------------------ #
-# --------------------------------------------- CHOOSE LANGUAGE ---------------------------------------- #
-### Choose version to download.
-echo -e "Type \e[33;1mBR\e[m to download Brazilian Portuguese version or type \e[33;1mEN\e[m for English version:\n"
-read -r download
-
-case $download in
-    br|BR)
-      echo ""
-      echo -e "\e[32;1mDownloading...\e[m"
-      echo ""
-    	wget -cq --show-progress "$url_firefox_br" -P /home/"$(id -nu 1000)"
-		;;
-    en|EN)
-      echo ""
-      echo -e "\e[32;1mDownloading...\e[m"
-      echo ""
-    	wget -cq --show-progress "$url_firefox_en" -P /home/"$(id -nu 1000)"
-    ;;  
-    *)
-      echo ""
-      echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
-      exit 1
-		;;
-esac
-
-# ------------------------------------------------------------------------------------------------------- #
-# ------------------------------------------------- EXECUTION ------------------------------------------- #
-### Pinning Firefox Snap package.
+main_script (){
+### Pinning Snap Firefox package.
 sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null << 'EOF' 
 Package: firefox*
 Pin: release o=Ubuntu*
 Pin-Priority: -1
 EOF
+
+### Download.
+echo -e "\e[32;1mDownloading...\e[m"
+wget -O firefox-latest.bz2 -cq --show-progress https://download.mozilla.org/\?product\=firefox-latest-ssl\&os\=linux64\&lang\="$your_lang" -P /home/"$(id -nu 1000)"
 
 ### Instalation of Firefox Release.
 echo ""
@@ -111,7 +69,52 @@ sudo chown "$(whoami)":"$(whoami)" /usr/share/applications/firefox-stable.deskto
 
 echo -e "\e[32;1mFirefox successfully installed!\e[m"
 
-# ---------------------------------------------------------------------------------------------------- #
-# ----------------------------------------------- CLEANUP -------------------------------------------- #
 ### Clean downloaded file.
 rm /home/"$(id -nu 1000)"/firefox*.bz2
+
+}
+
+### Check Ubuntu/Flavours 22.04.
+if [[ $(lsb_release -cs) = 'jammy' ]] 
+then
+	echo ""
+	echo ""
+	echo -e "\e[32;1mJammy 22.04 Detected. Continuing script...\e[m"
+	echo ""
+	echo ""
+else
+	echo -e "\e[31;1mDistro not supported by this script.\e[m"
+	exit 1
+fi
+
+### Uninstall Firefox Snap and Script execution
+if [[ $snap_exist = "firefox" ]] 
+then
+	echo -e "\e[32;1mUninstalling Firefox Snap...\e[m"
+	sudo snap remove firefox
+	main_script
+else
+	echo -e "Firefox Snap not installed on your system. Would you like to continue the script to download and install?"
+	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit the script:\n"
+	read -r download
+
+		case $download in
+			y|Y)
+			echo ""
+			echo ""
+				main_script
+			;;
+			n|N)
+			echo ""
+			echo -e "\e[32;1mTerminating script...\e[m"
+			echo ""
+			exit 0
+			;;  
+			*)
+			echo ""
+			echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
+			echo ""
+			exit 1
+			;;
+		esac
+fi
