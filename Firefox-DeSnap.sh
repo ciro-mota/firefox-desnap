@@ -96,8 +96,9 @@ then
 else
 	echo -e "Firefox Snap not installed on your system. Would you like to continue the script to download and install?"
 	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit the script:\n"
-	read -r download
 
+	while true; do
+	read -r download
 		case $download in
 			y|Y)
 			echo ""
@@ -117,4 +118,6 @@ else
 			exit 1
 			;;
 		esac
+	done	
 fi
+
