@@ -1,4 +1,4 @@
-# Download and install Firefox Release on Ubuntu 22.04
+# Download and install Firefox Release on Ubuntu 22.04 and Debian Stable or Testing
 
 [![Versão-Português_Brasil](https://img.shields.io/badge/Versão-Português_Brasil-%2393CE0A?style=for-the-badge)](/README.pt-br.md)
 ![License](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
@@ -15,15 +15,19 @@ Ubuntu in its version 22.04 brought the Firefox proposal through the Snap format
 
 Script will download the Firefox depending of locale setting of your system language. You can check that typing `locale | head -1`.
 
-This script soon can also be used in Debian Stable or Testing.
+This script can also install Firefox stable on Debian Stable or Testing, which usually has the ESR version installed.
 
-**This script is under development, errors are expected.**
+**This script is under development, errors are expected. In case of errors please report them in the Issues tab for correction.**
 
 ## Notes
 
-This script will be check if Firefox Snap is installed an will be remove it. And then will download and install version on tarball of Mozilla servers.
+- The script will check if you have the Snap or ESR versions installed, otherwise the Stable version can be installed and both can coexist normally on the same system.
 
-In addition, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
+- If you choose, the script will uninstall the Snap or ESR versions and ask for confirmation to install the Stable version.
+
+- In addition to that, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
+
+- If you use Debian on the GNOME version, it requires a browser (either Firefox ESR or Chromium) to be installed on the system. In this case when choosing to remove Firefox ESR Chromium will be automatically installed.
 
 ## Execution
 
