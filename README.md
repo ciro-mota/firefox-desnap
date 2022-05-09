@@ -11,19 +11,19 @@
 
 ## Proposal
 
-Ubuntu in its version 22.04 brought the Firefox proposal through the Snap format as the default for its installations and some of its flavors. The purpose of this Git is to install Firefox in the most current version on these distros through a direct download from Mozilla, with updates in the browser itself.
+Ubuntu in its version 22.04 brought the Firefox proposal through the Snap format as the default for its installations and some of its flavors. The purpose of this Git is to install Firefox in the latest version on these distros through a direct download from Mozilla, with updates in the browser itself.
 
 Script will download the Firefox depending of locale setting of your system language. You can check that typing `locale | head -1`.
 
-This script can also install Firefox stable on Debian Stable or Testing, which usually has the ESR version installed.
+This script can also install Firefox latest on Debian Stable or Testing, which usually has the ESR version installed.
 
 **This script is under development, errors are expected. In case of errors please report them in the Issues tab for correction.**
 
 ## Notes
 
-- The script will check if you have the Snap or ESR versions installed, otherwise the Stable version can be installed and both can coexist normally on the same system.
+- The script will check if you have the Snap or ESR versions installed, otherwise the latest version can be installed and both can coexist normally on the same system.
 
-- If you choose, the script will uninstall the Snap or ESR versions and ask for confirmation to install the Stable version.
+- If you choose, the script will uninstall the Snap or ESR versions and ask for confirmation to install the latest version.
 
 - In addition to that, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
 

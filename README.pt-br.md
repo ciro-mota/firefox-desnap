@@ -14,15 +14,15 @@ O Ubuntu em sua versão 22.04 trouxe a proposta do Firefox através do formado e
 
 O script irá baixar o Firefox dependendo das configurações de `locale` de idioma do seu sistema. Você poderá verificar isso digitando `locale | head -1`.
 
-Este script também pode fazer a instalação do Firefox stable no Debian Stable ou Testing, que normalmente conta com a versão ESR instalada.
+Este script também pode fazer a instalação do Firefox versão mais recente no Debian Stable ou Testing, que normalmente conta com a versão ESR instalada.
 
 **Este script está em desenvolvimento, erros são esperados. Em caso de erros por favor reporte-os na guia Issues para correção.**
 
 ## Notas
 
-- O script irá verificar se você possui as versões em Snap ou ESR instaladas, caso contrário a versão Stable poderá ser instalada e ambas poderão coexistir normalmente no mesmo sistema.
+- O script irá verificar se você possui as versões em Snap ou ESR instaladas, caso contrário a versão versão mais recente poderá ser instalada e ambas poderão coexistir normalmente no mesmo sistema.
 
-- Caso opte, o script irá desinstalar as versões em Snap ou ESR e irá solicitar confirmação para a instalação da versão Stable.
+- Caso opte, o script irá desinstalar as versões em Snap ou ESR e irá solicitar confirmação para a instalação da versão versão mais recente.
 
 - Em adição a isso o script também irá _pinar_ a versão em Snap do Firefox para que a mesma não seja instalada novamente.
 
