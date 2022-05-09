@@ -8,7 +8,7 @@
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 07/05/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 09/05/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 ### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' | tr "_" "-")"
@@ -38,6 +38,7 @@ sudo tar xjf /home/"$(id -nu 1000)"/firefox*.bz2 -C /opt
 sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 sudo chown -R "$(whoami)":"$(whoami)" /opt/firefox*
 
+### Creating shortcut.
 sudo tee -a /usr/share/applications/firefox-stable.desktop &>/dev/null << 'EOF' 
 [Desktop Entry]
 Version=1.0
@@ -69,16 +70,17 @@ Name=Open the Profile Manager
 Exec=firefox --ProfileManager
 EOF
 
+### Shortcut permissions
 sudo chown "$(whoami)":"$(whoami)" /usr/share/applications/firefox-stable.desktop
-
-echo -e "\e[32;1mFirefox successfully installed!\e[m"
 
 ### Clean downloaded file.
 rm /home/"$(id -nu 1000)"/firefox*.bz2
+
+echo -e "\e[32;1mFirefox successfully installed!\e[m"
 }
 
+### Call download and installation function
 func_down (){
-echo ""
 echo -e "Would you like to continue anyway to download and install tarball version?"
 echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit the script:"
 read -r download
@@ -96,15 +98,67 @@ read -r download
 			;;  
 			*)
 			echo ""
-			echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
+			echo -e "\e[31;1mIncorrect option.\e[m"
 			echo ""
-			exit 1
+				func_down
 			;;
 		esac
 }
 
+### Call uninstall snap and/or installation
+func_ff_snap (){
+	echo -e "Firefox Snap detected. Would you like do unistall?"
+	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
+	read -r unin_snap
+			case $unin_snap in
+				y|Y)
+					echo ""
+					echo ""
+					echo -e "\e[32;1mUninstalling Firefox Snap...\e[m"
+					sudo snap remove firefox
+					func_snap
+				;;
+				n|N)
+					echo ""
+						func_down
+					echo ""
+				;;  
+				*)
+					echo ""
+					echo -e "\e[31;1mIncorrect option.\e[m"
+					echo ""
+						func_ff_snap	
+			esac
+}
+
+### Call uninstall ESR and/or installation
+func_ff_esr (){
+	echo -e "Firefox ESR detected. Would you like do unistall?"
+	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
+	read -r unin_esr
+		case $unin_esr in
+			y|Y)
+				echo ""
+				echo ""
+				echo -e "\e[32;1mUninstalling Firefox ESR...\e[m"
+				sudo apt purge firefox-esr -y
+			;;
+			n|N)
+				echo ""
+					func_down
+				echo ""
+			;;  
+			*)
+				echo ""
+				echo -e "\e[31;1mIncorrect option.\e[m"
+				echo ""
+					func_ff_esr
+			;;
+		esac
+}
+
+### Main uninstall Firefox Snap or ESR and script execution.
 exec_script (){
-### Uninstall Firefox Snap or ESR and script execution.
 echo -e "Script will check if you have Firefox Snap or ESR installed and remove it."
 echo -e "Would you like to continue the script? Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit"
 read -r exists
@@ -114,57 +168,13 @@ read -r exists
 		echo ""
 			if [[ $snap_exist = "firefox" ]]; 
 			then
-				echo -e "Firefox Snap detected. Would you like do unistall?"
-				echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
-				read -r unin_snap
-					case $unin_snap in
-						y|Y)
-						echo ""
-						echo ""
-							echo -e "\e[32;1mUninstalling Firefox Snap...\e[m"
-							sudo snap remove firefox
-							func_snap
-						;;
-						n|N)
-						echo ""
-							func_down
-						echo ""
-						;;  
-						*)
-						echo ""
-						echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
-						echo ""
-						exit 1		
-					esac	
+					func_ff_snap
 			elif [[ $esr_exist = "firefox-esr" ]]; 
 			then
-				echo -e "Firefox ESR detected. Would you like do unistall?"
-				echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
-				read -r unin_esr
-
-					case $unin_esr in
-						y|Y)
-						echo ""
-						echo ""
-							echo -e "\e[32;1mUninstalling Firefox ESR...\e[m"
-							sudo apt purge firefox-esr -y
-						;;
-						n|N)
-						echo ""
-							func_down
-						echo ""
-						;;  
-						*)
-						echo ""
-						echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
-						echo ""
-						exit 1
-						;;
-					esac
+					func_ff_esr
 			else
 				echo -e "No Firefox was detected."
-					func_down
-				echo ""				
+					func_down				
 			fi
 		;;
 		n|N)
@@ -175,9 +185,9 @@ read -r exists
 		;;  
 		*)
 		echo ""
-		echo -e "\e[31;1mIncorrect option. Leaving...\e[m"
+		echo -e "\e[31;1mIncorrect option.\e[m"
 		echo ""
-		exit 1
+					exec_script
 		;;		
 	esac	
 }
