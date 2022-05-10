@@ -4,11 +4,11 @@
 ## NAME:
 ### 	Firefox-DeSnap.sh.
 ## DESCRIPTION:
-###			Install Firefox Not Snap in the most current version on Ubuntu and your Flavours and Debian Stable or Testing.
+###			Install Firefox Tarball version latest on Ubuntu and your Flavours and Debian Stable or Testing.
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 09/05/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 10/05/2022. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 ### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' | tr "_" "-")"
@@ -17,12 +17,18 @@ esr_exist="$(dpkg -l | grep firefox-esr | awk '{print $2}')"
 version_check="$(lsb_release -cs)"
 
 func_snap (){
-### Pinning Snap Firefox package.
+### Pinning Snap and uninstalling Firefox package.
+sudo snap remove firefox >/dev/null
+
 sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null << 'EOF' 
 Package: firefox*
 Pin: release o=Ubuntu*
 Pin-Priority: -1
 EOF
+}
+
+func_esr (){
+sudo apt-get purge firefox-esr -y >/dev/null
 }
 
 down_script (){
@@ -113,10 +119,9 @@ func_ff_snap (){
 			case $unin_snap in
 				y|Y)
 					echo ""
-					echo ""
 					echo -e "\e[32;1mUninstalling Firefox Snap...\e[m"
-					sudo snap remove firefox
 					func_snap
+					echo ""
 				;;
 				n|N)
 					echo ""
@@ -141,7 +146,7 @@ func_ff_esr (){
 				echo ""
 				echo ""
 				echo -e "\e[32;1mUninstalling Firefox ESR...\e[m"
-				sudo apt purge firefox-esr -y
+					func_esr
 			;;
 			n|N)
 				echo ""
@@ -196,7 +201,7 @@ read -r exists
 if [[ $version_check = 'jammy' ]] || [[ $version_check = 'bookworm' ]] || [[ $version_check = 'bullseye' ]]
 then
 	echo ""
-	echo -e "\e[32;1mCorrect distro detected. Continuing script...\e[m"
+	echo -e "\e[32;1mContinuing script...\e[m"
 	echo ""
 		exec_script
 	echo ""
