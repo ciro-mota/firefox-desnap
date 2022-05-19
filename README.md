@@ -23,11 +23,13 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 
 - The script will check if you have the Snap or ESR versions installed, otherwise the latest version can be installed and both can coexist normally on the same system.
 
-- If you choose, the script will uninstall the Snap or ESR versions and ask for confirmation to install the latest version.
+- If you choose to run this script in automatic mode, the script will automatically remove Firefox Snap or ESR and install the latest version in tarball format as a replacement for the system's native versions.
+
+- Manually, the script will uninstall the Snap or ESR versions and ask for confirmation to install the latest tarball version.
 
 - In addition to that, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
 
-- If you use Debian on the GNOME version, it requires a browser (either Firefox ESR or Chromium) to be installed on the system. In this case when choosing to remove Firefox ESR Chromium will be automatically installed.
+- If you use Debian on the GNOME version, it requires a browser (either Firefox ESR or Chromium) to be installed on the system. In this case when choosing to remove Firefox ESR, Chromium will be automatically installed.
 
 ## Execution
 

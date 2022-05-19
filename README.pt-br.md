@@ -22,7 +22,9 @@ Este script também pode fazer a instalação do Firefox versão mais recente no
 
 - O script irá verificar se você possui as versões em Snap ou ESR instaladas, caso contrário a versão versão mais recente poderá ser instalada e ambas poderão coexistir normalmente no mesmo sistema.
 
-- Caso opte, o script irá desinstalar as versões em Snap ou ESR e irá solicitar confirmação para a instalação da versão versão mais recente.
+- Se você escolher executar este script pelo modo automático, o script irá remover automaticamente o Firefox Snap ou o ESR e irá instalar a versão latest no formato tarball como substituição das versões nativa do sistema.
+
+- Manualmente, o script irá desinstalar as versões em Snap ou ESR e irá solicitar confirmação para a instalação da versão versão mais recente em tarball.
 
 - Em adição a isso o script também irá _pinar_ a versão em Snap do Firefox para que a mesma não seja instalada novamente.
 
