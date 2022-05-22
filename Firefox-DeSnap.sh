@@ -12,30 +12,69 @@
 
 ### Variables.
 down_url="https://download.mozilla.org/?product=firefox-latest-ssl&os=linux64&lang="
-your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' | tr "_" "-")"
+your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/')"
 snap_exist="$(snap list 2> /dev/null | grep firefox | awk '{print $1}')"
 esr_exist="$(dpkg -l | grep firefox-esr | awk '{print $2}')"
 version_check="$(lsb_release -cs)"
 
+### Pinning Snap and uninstalling Firefox package.
 func_snap (){
 echo -e "\e[32;1mUninstalling Firefox Snap...\e[m\n"
-	
-### Pinning Snap and uninstalling Firefox package.
+
 sudo snap remove firefox >/dev/null
 
-sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null << 'EOF' 
+sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null << 'EOF'
 Package: firefox*
 Pin: release o=Ubuntu*
 Pin-Priority: -1
 EOF
 }
 
+### Call uninstall snap and/or installation.
+func_select_snap (){
+	echo -e "Firefox Snap detected. Would you like do unistall?"
+	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
+	read -r unin_snap
+		case $unin_snap in
+			y|Y)
+					func_snap
+				;;
+			n|N)
+					func_down
+				;;
+			*)
+					echo -e "\e[31;1mIncorrect option.\e[m\n"
+					func_select_snap	
+			esac
+}
+
+### Uninstall Firefox ESR.
 func_esr (){
 echo -e "\e[32;1mUninstalling Firefox ESR...\e[m\n"
 sudo apt-get purge firefox-esr -y >/dev/null
 }
 
-down_script (){
+### Call uninstall ESR and/or installation.
+func_select_esr (){
+	echo -e "Firefox ESR detected. Would you like do unistall?"
+	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
+	read -r unin_esr
+		case $unin_esr in
+			y|Y)
+					func_esr
+			;;
+			n|N)
+					func_down
+			;;
+			*)
+					echo -e "\e[31;1mIncorrect option.\e[m\n"
+					func_select_esr
+			;;
+		esac
+}
+
+### Main function.
+func_install (){
 ### Download.
 echo -e "\e[32;1mDownloading...\e[m\n"
 wget -O firefox-latest.bz2 -cq --show-progress "$down_url""$your_lang" -P /home/"$(id -nu 1000)"
@@ -47,7 +86,7 @@ sudo ln -s /opt/firefox/firefox /usr/local/bin/firefox
 sudo chown -R "$(whoami)":"$(whoami)" /opt/firefox*
 
 ### Creating shortcut.
-sudo tee -a /usr/share/applications/firefox-stable.desktop &>/dev/null << 'EOF' 
+sudo tee -a /usr/share/applications/firefox-stable.desktop &>/dev/null << 'EOF'
 [Desktop Entry]
 Version=1.0
 Name=Firefox
@@ -78,7 +117,7 @@ Name=Open the Profile Manager
 Exec=firefox --ProfileManager
 EOF
 
-### Shortcut permissions
+### Shortcut permissions.
 sudo chown "$(whoami)":"$(whoami)" /usr/share/applications/firefox-stable.desktop
 
 ### Clean downloaded file.
@@ -87,14 +126,14 @@ rm /home/"$(id -nu 1000)"/firefox*.bz2
 echo -e "\e[32;1mFirefox successfully installed!\e[m"
 }
 
-### Call download and installation function
+### Call download/installation function.
 func_down (){
 echo -e "Would you like to continue anyway to download and install tarball version?"
 echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit the script:\n"
 read -r download
 		case $download in
 			y|Y)
-				down_script
+				func_install
 			;;
 			n|N)
 				echo -e "\e[32;1mTerminating script...\e[m"
@@ -107,101 +146,65 @@ read -r download
 		esac
 }
 
-### Call uninstall snap and/or installation
-func_ff_snap (){
-	echo -e "Firefox Snap detected. Would you like do unistall?"
-	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
-	read -r unin_snap
-		case $unin_snap in
-			y|Y)
-					func_snap
-				;;
-			n|N)
-					func_down
-				;;  
-			*)
-					echo -e "\e[31;1mIncorrect option.\e[m\n"
-					func_ff_snap	
-			esac
-}
-
-### Call uninstall ESR and/or installation
-func_ff_esr (){
-	echo -e "Firefox ESR detected. Would you like do unistall?"
-	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall:\n"
-	read -r unin_esr
-		case $unin_esr in
-			y|Y)
-					func_esr
-			;;
-			n|N)
-					func_down
-			;;  
-			*)
-					echo -e "\e[31;1mIncorrect option.\e[m\n"
-					func_ff_esr
-			;;
-		esac
-}
-
-### Main uninstall Firefox Snap or ESR and script execution.
+### Firefox Snap or ESR script execution.
 exec_script (){
 echo -e "Script will check if you have Firefox Snap or ESR installed and remove it."
 echo -e "Would you like to continue the script? Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit\n"
 read -r exists
 		case $exists in
 			y|Y)
-				if [[ $snap_exist = "firefox" ]]; 
+				if [[ $snap_exist = "firefox" ]];
 				then
-						func_ff_snap
-				elif [[ $esr_exist = "firefox-esr" ]]; 
+						func_select_snap
+				elif [[ $esr_exist = "firefox-esr" ]];
 				then
-						func_ff_esr
+						func_select_esr
 				else
 					echo -e "No Firefox was detected.\n"
-						func_down				
+						func_down
 				fi
 			;;
 			n|N)
 			echo -e "\e[32;1mTerminating script...\e[m\n"
 			exit 0
-			;;  
+			;;
 			*)
 			echo -e "\e[31;1mIncorrect option.\e[m\n"
 						exec_script
-			;;		
-		esac	
+			;;
+		esac
 	}
 
+### Exec in automatic mode.
 func_auto () {
 	echo -e "Would you like to run this script automatically? See the documentation to see what it will do."
 	echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to interactive mode\n"
 	read -r choose
 		case $choose in
 			y|Y)
-				if [[ $snap_exist = "firefox" ]]; 
+				if [[ $snap_exist = "firefox" ]];
 				then
 						func_snap
-						down_script
-				elif [[ $esr_exist = "firefox-esr" ]]; 
+						func_install
+				elif [[ $esr_exist = "firefox-esr" ]];
 				then
 						func_esr
-						down_script
+						func_install
 				else
-						down_script				
+						func_install
 				fi
 			;;
 			n|N)
 						exec_script
-			;;  
+			;;
 			*)
 						echo -e "\e[31;1mIncorrect option.\e[m"
 						func_auto
-			;;		
+			;;
 		esac
 }
 
-### Check Ubuntu/Flavours 22.04 and Debian Stable or Testing and exec.
+### Check Ubuntu/Flavours 22.04 and Debian Stable or Testing and start exec.
 if [[ $version_check = 'jammy' ]] || [[ $version_check = 'bookworm' ]] || [[ $version_check = 'bullseye' ]]
 then
 			func_auto
