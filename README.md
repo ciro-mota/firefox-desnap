@@ -36,3 +36,9 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 - `git clone` this repo.
 - Give execution permissions on **Firefox-DeSnap.sh**
 - `./Firefox-DeSnap` to execute.
+
+## Sponsoring
+
+If you like this work, give me it a star on GitHub, and consider supporting it:
+
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=VUS6R8TX53NTS&no_recurring=0&currency_code=USD)
