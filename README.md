@@ -1,11 +1,11 @@
 </p>
 
-<h2>Download and install Firefox Release on Ubuntu 22.04 and Debian Stable or Testing</h2>
-
 <table align="right">
  <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.md">:us: English</a></td></tr>
  <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.pt-br.md">:brazil: Português</a></td></tr>
 </table>
+
+<h2>Download and install Firefox Release on Ubuntu 22.04 and Debian Stable or Testing</h2>
 
 ![License](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
 ![Shell Script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)
