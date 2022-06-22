@@ -1,6 +1,12 @@
-# Download and install Firefox Release on Ubuntu 22.04 and Debian Stable or Testing
+</p>
 
-[![Versão-Português_Brasil](https://img.shields.io/badge/Versão-Português_Brasil-%2393CE0A?style=for-the-badge)](/README.pt-br.md)
+<h2>Download and install Firefox Release on Ubuntu 22.04 and Debian Stable or Testing</h2>
+
+<table align="right">
+ <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.md">:us: English</a></td></tr>
+ <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.pt-br.md">:brazil: Português</a></td></tr>
+</table>
+
 ![License](https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge)
 ![Shell Script](https://img.shields.io/badge/Shell_Script-121011?style=for-the-badge&logo=gnu-bash&logoColor=white)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white) 
