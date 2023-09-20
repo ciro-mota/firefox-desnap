@@ -15,7 +15,7 @@
     <img alt="Lubuntu" src="https://img.shields.io/badge/-Lubuntu-%230065C2?style=for-the-badge&logo=lubuntu&logoColor=white">
     <img alt="MATE" src="https://img.shields.io/badge/Ubuntu%20MATE-84A454.svg?style=for-the-badge&logo=Ubuntu-MATE&logoColor=white">
     <img alt="Debian" src="https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white">
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/ciro-mota/Personal-Startpage?style=for-the-badge">
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/ciro-mota/firefox-desnap?style=for-the-badge">
 </p>
 
 ## 📑 Proposta
