@@ -45,3 +45,9 @@ Este script também pode fazer a instalação do Firefox versão mais recente no
 - `git clone` este repo.
 - Dê permissões de execução para o arquivo **Firefox-DeSnap.sh**
 - `./Firefox-DeSnap` para executar.
+
+## 🌎 Como atualizar
+
+Ao instalar o Firefox por este método você terá as atualizações diretamente dentro do próprio navegador. Para isso basta seguir o demostrado abaixo:
+
+![](/assets/update.gif)
