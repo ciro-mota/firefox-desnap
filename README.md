@@ -1,10 +1,3 @@
-</p>
-
-<table align="right">
- <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.md">:us: English</a></td></tr>
- <tr><td><a href="https://github.com/ciro-mota/firefox-desnap/blob/main/README.pt-br.md">:brazil: Português</a></td></tr>
-</table>
-
 <h2>Download and install Firefox Release on Ubuntu 22.04, 22.10, 23.04, 23.10 and Debian Stable or Testing</h2>
 
 <p align="center">
@@ -17,12 +10,6 @@
     <img alt="Debian" src="https://img.shields.io/badge/Debian-A81D33?style=for-the-badge&logo=debian&logoColor=white">
     <img alt="Last Commit" src="https://img.shields.io/github/last-commit/ciro-mota/firefox-desnap?style=for-the-badge">
 </p>
-
-## 🎁 Sponsoring
-
-If you like this work, give me it a star on GitHub, and consider supporting it:
-
-[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=VUS6R8TX53NTS&no_recurring=0&currency_code=USD)
 
 ## 📑 Proposal
 
@@ -57,3 +44,9 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 When installing Firefox using this method you will have updates directly within the browser itself. To do this, simply follow the steps below:
 
 ![](/assets/update.gif)
+
+## 🎁 Sponsoring
+
+If you like this work, give me it a star on GitHub, and consider supporting it:
+
+[![PayPal](https://img.shields.io/badge/PayPal-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://www.paypal.com/donate/?business=VUS6R8TX53NTS&no_recurring=0&currency_code=USD)
