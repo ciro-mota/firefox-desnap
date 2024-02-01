@@ -13,25 +13,27 @@
 
 ## 📑 Proposal
 
-Ubuntu in its version 22.04 ou higher brought the Firefox proposal through the Snap format as the default for its installations and its flavors. The purpose of this Git is to install Firefox in the latest version on these distros through a direct download from Mozilla, with updates in the browser itself.
-
-Script will download the Firefox depending of locale setting of your system language. You can check that typing `locale | head -1`.
+Ubuntu in its version 22.04 ou higher brought the Firefox proposal through the Snap format as the default for its installations and its flavors. The purpose of this Git is to install Firefox in the latest version on these distros through a direct download from Mozilla PPA, with updates with the system.
 
 This script can also install Firefox latest on Debian Stable or Testing, which usually has the ESR version installed.
 
-**This script is under development, errors are expected. In case of errors please report them in the Issues tab for correction.**
-
 ## 📌 Notes
+
+**In case of errors please report them in the Issues tab for correction.**
+
+- Script will download the Firefox depending of locale setting of your system language.
+
+- Keep in mind that performance, some bugs, missing features and missing system integrations with the Firefox Snap package have the promise to are being addressed by Ubuntu developers. And ESR is developed to be as stable as possible and closely tracks major version releases.
 
 - The script will check if you have the Snap or ESR versions installed, otherwise the latest version can be installed and both can coexist normally on the same system.
 
-- If you choose to run this script in automatic mode, the script will automatically remove Firefox Snap or ESR and install the latest version in tarball format as a replacement for the system's native versions.
+- If you choose to run this script in automatic mode, the script will automatically remove Firefox Snap or ESR and install the latest version from Mozilla or Debian Sid (for the Debian installation) repo as a replacement for the system's native versions.
 
-- Manually, the script will uninstall the Snap or ESR versions and ask for confirmation to install the latest tarball version.
+- Manually, the script will uninstall the Snap or ESR versions and ask for confirmation to install the latest version.
 
-- In addition to that, this script will also _pin_ the Snap version of Firefox so it doesn't get installed again.
+- In addition to that, this script will also _pin_ the Snap version of Firefox in Ubuntu and ESR in Debian so it doesn't get installed again.
 
-- If you use Debian on the GNOME version, it requires a browser (either Firefox ESR or Chromium) to be installed on the system. In this case when choosing to remove Firefox ESR, Chromium will be automatically installed.
+- If you want to install by the tarball method, use the old version of this script contained in `tarball branch`.
 
 ## 🚀 Execution
 
@@ -41,9 +43,7 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 
 ## 🌎 How to update
 
-When installing Firefox using this method you will have updates directly within the browser itself. To do this, simply follow the steps below:
-
-![](/assets/update.gif)
+When installing Firefox using this method you will have updates directly from the system repo `apt update` and `apt upgrade`.
 
 ## 🎁 Sponsoring
 
