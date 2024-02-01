@@ -43,7 +43,9 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 
 ## 🌎 How to update
 
-When installing Firefox using this method you will have updates directly from the system repo `apt update` and `apt upgrade`.
+When installing Firefox using this method you will have updates directly within the browser itself. To do this, simply follow the steps below:
+
+![](/assets/update.gif)
 
 ## 🎁 Sponsoring
 
