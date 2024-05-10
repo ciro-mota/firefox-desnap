@@ -19,13 +19,13 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 
 <p align="center">Made with 💝 for <img src=".github/tux.png" align="top" width="18" /></p>
 
-> [!WARNING] \
+> [!WARNING] 
 > This script only supports LTS versions of Ubuntu and only the latest point release (23.10 `mantic`). In addition, Debian is not supported on Oldstable either.
 
-> [!IMPORTANT] \
+> [!IMPORTANT] 
 >In case of errors please report them in the Issues tab for future correction.
 
-> [!NOTE] \
+> [!NOTE] 
 >Keep in mind that performance, some bugs, missing features and missing system integrations with the Firefox Snap package, have the promise to are being addressed by Ubuntu developers. And ESR is developed to be as stable as possible and closely tracks major version releases.
 
 ## 📌 Notes
