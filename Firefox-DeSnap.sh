@@ -192,8 +192,8 @@ func_auto() {
     esac
 }
 
-### Check Ubuntu/Flavours 22.04, 22.10, 23.04, 23.10 and Debian Stable or Testing and start exec.
-if [[ $version_check =~ ^(mantic|lunar|jammy|trixie|bookworm|bullseye)$ ]]; then
+### Check Ubuntu/Flavours 22.04, 23.10, 24.04 and Debian Stable or Testing and start exec.
+if [[ $version_check =~ ^(noble|mantic|jammy|trixie|bookworm)$ ]]; then
     func_auto
 else
     echo -e "\e[31;1mDistro not supported by this script.\e[m"
