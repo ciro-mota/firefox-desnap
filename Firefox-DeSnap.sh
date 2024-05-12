@@ -8,7 +8,7 @@
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 01/02/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 12/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 ### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
@@ -38,7 +38,7 @@ EOF
 
 ### Uninstall Firefox Snap.
 func_select_snap() {
-    echo -e "Firefox Snap detected. Would you like do unistall?"
+    echo -e "Firefox Snap detected. Would you like do uninstall?"
     echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall and exit:\n"
     read -r unin_snap
     case $unin_snap in
