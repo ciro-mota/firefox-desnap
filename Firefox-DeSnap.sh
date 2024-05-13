@@ -8,7 +8,7 @@
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 12/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 13/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 ### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
@@ -19,17 +19,19 @@ version_check="$(lsb_release -cs)"
 
 ### Pinning Snap and uninstalling Firefox Snap package.
 func_snap() {
-    echo -e "\e[32;1mUninstalling Firefox Snap...\e[m\n"
 
-    sudo snap remove firefox >/dev/null
+echo ""
+echo -e "\e[32;1mUninstalling Firefox Snap...\e[m\n"
 
-    sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null <<'EOF'
+sudo snap remove firefox >/dev/null
+
+sudo tee -a /etc/apt/preferences.d/firefox-no-snap &>/dev/null <<'EOF'
 Package: firefox*
 Pin: release o=Ubuntu*
 Pin-Priority: -1
 EOF
 
-    sudo tee -a /etc/apt/preferences.d/mozilla &>/dev/null <<'EOF'
+sudo tee -a /etc/apt/preferences.d/mozilla &>/dev/null <<'EOF'
 Package: *
 Pin: origin packages.mozilla.org
 Pin-Priority: 1000
@@ -64,6 +66,7 @@ func_install_ubuntu() {
     case $download in
     y | Y)
         ### Adding PPA.
+        echo ""
         echo -e "\e[32;1mAdding Firefox Oficial PPA...\e[m"
         wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- |
             sudo tee /etc/apt/keyrings/packages.mozilla.org.asc >/dev/null
@@ -74,7 +77,7 @@ func_install_ubuntu() {
         sudo apt-get -qq update >/dev/null
 
         ### Install Firefox and lang-pack
-        sudo apt install -y firefox firefox-l10n-"$your_lang"
+        sudo apt install -y --allow-downgrades firefox firefox-l10n-"$your_lang"
         ;;
     n | N)
         echo -e "\e[32;1mTerminating script...\e[m"
