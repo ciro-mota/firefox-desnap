@@ -59,7 +59,7 @@ It's a little out of context of the scope of this repo, however Thunderbird is c
 > [!NOTE] 
 >When adding the Mozilla Team's PPA you check for the alert: 
 >
->W: https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/dists/noble/InRelease: Signature by key 0AB215679C571D1C8325275B9BDB3D89CE49EC21 uses weak algorithm (rsa1024) 
+> >W: https://ppa.launchpadcontent.net/mozillateam/ppa/ubuntu/dists/noble/InRelease: Signature by key 0AB215679C571D1C8325275B9BDB3D89CE49EC21 uses weak algorithm (rsa1024) 
 >
 >This is not necessarily an error as can be seen in [this link](https://discourse.ubuntu.com/t/new-requirements-for-apt-repository-signing-in-24-04/42854). The `Thunderbird-DeSnap.sh` script can bypass this alert and will be temporarily removed after being corrected by the Canonical and/or Mozilla Team.
 
