@@ -36,6 +36,10 @@ Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001
 EOF
 
+sudo tee -a /etc/apt/apt.conf.d/99weakkey-warning &>/dev/null <<'EOF'
+APT::Key::Assert-Pubkey-Algo ">=rsa1024,ed25529,ed448";
+EOF
+
 }
 
 ### Uninstall Thunderbird Snap.
