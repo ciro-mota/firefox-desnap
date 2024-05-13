@@ -8,7 +8,7 @@
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 12/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 13/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 ### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
@@ -17,22 +17,25 @@ version_check="$(lsb_release -cs)"
 
 ### Pinning Snap and uninstalling Thunderbird Snap package.
 func_snap() {
-    echo -e "\e[32;1mUninstalling Thunderbird Snap...\e[m\n"
 
-    sudo snap remove thunderbird >/dev/null
-    sudo apt remove thunderbird* >/dev/null
+echo ""
+echo -e "\e[32;1mUninstalling Thunderbird Snap...\e[m\n"
 
-    sudo tee -a /etc/apt/preferences.d/thunderbird-no-snap &>/dev/null <<'EOF'
+sudo snap remove thunderbird >/dev/null
+sudo apt-get remove -y thunderbird* >/dev/null
+
+sudo tee -a /etc/apt/preferences.d/thunderbird-no-snap &>/dev/null <<'EOF'
 Package: thunderbird*
 Pin: release o=Ubuntu*
 Pin-Priority: -1
 EOF
 
-    sudo tee -a /etc/apt/preferences.d/thunderbird &>/dev/null <<'EOF'
+sudo tee -a /etc/apt/preferences.d/thunderbird &>/dev/null <<'EOF'
 Package: thunderbird*
 Pin: release o=LP-PPA-mozillateam
 Pin-Priority: 1001
 EOF
+
 }
 
 ### Uninstall Thunderbird Snap.
@@ -63,13 +66,14 @@ func_install_ubuntu() {
     case $download in
     y | Y)
         ### Adding PPA.
+        echo ""
         echo -e "\e[32;1mAdding Thunderbird Mozilla Team PPA...\e[m"
         sudo add-apt-repository ppa:mozillateam/ppa -y
 
         sudo apt-get -qq update >/dev/null
 
         ### Install Thunderbird and lang-pack
-        sudo apt install -y thunderbird thunderbird-locale-"$your_lang"
+        sudo apt-get install -y thunderbird thunderbird-locale-"$your_lang"
         ;;
     n | N)
         echo -e "\e[32;1mTerminating script...\e[m"
@@ -92,7 +96,7 @@ exec_script() {
         if [[ $snap_exist = "thunderbird" ]]; then
             func_select_snap
         else
-            echo -e "No Thunderbird was detected.\n"
+            echo -e "No Thunderbird Snap was detected.\n"
             exit 0
         fi
         ;;
@@ -118,7 +122,7 @@ func_auto() {
             func_snap
             func_install_ubuntu
         else
-            echo -e "No Thunderbird was detected.\n"
+            echo -e "No Thunderbird Snap was detected.\n"
             exit 0
         fi
         ;;
