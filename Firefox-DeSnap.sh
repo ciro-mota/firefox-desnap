@@ -10,16 +10,13 @@
 ## CHANGELOG:
 ### 		Last Update: 13/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
-### Variables.
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
 your_lang_deb="$(locale -a | tail -1 | sed -e 's/.utf8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
 snap_exist="$(snap list 2>/dev/null | grep firefox | awk '{print $1}')"
 esr_exist="$(dpkg -l | grep firefox-esr | awk '{print $2}')"
 version_check="$(lsb_release -cs)"
 
-### Pinning Snap and uninstalling Firefox Snap package.
 func_snap() {
-
 echo ""
 echo -e "\e[32;1mUninstalling Firefox Snap...\e[m\n"
 
@@ -38,7 +35,6 @@ Pin-Priority: 1000
 EOF
 }
 
-### Uninstall Firefox Snap.
 func_select_snap() {
     echo -e "Firefox Snap detected. Would you like do uninstall?"
     echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall and exit:\n"
@@ -58,7 +54,6 @@ func_select_snap() {
     esac
 }
 
-### Main Ubuntu function.
 func_install_ubuntu() {
     echo -e "Would you like to continue anyway to download and install Firefox not Snap?"
     echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit the script:\n"
@@ -85,18 +80,16 @@ func_install_ubuntu() {
         ;;
     *)
         echo -e "\e[31;1mIncorrect option. Please try again.\e[m"
-        func_down
+        func_install_ubuntu
         ;;
     esac
 }
 
-### Uninstall Firefox ESR.
 func_esr() {
     echo -e "\e[32;1mUninstalling Firefox ESR...\e[m\n"
     sudo apt-get purge firefox-esr -y >/dev/null
 }
 
-### Call uninstall Firefox ESR and install Firefox Latest.
 func_select_esr() {
     echo -e "Firefox ESR detected. Would you like do unistall?"
     echo -e "Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to not uninstall and exit:\n"
@@ -116,15 +109,14 @@ func_select_esr() {
     esac
 }
 
-### Main Debian function.
 func_install_debian() {
-    ### Adding Unstable source.
-    echo -e "\e[32;1mAdding Firefox Debian Unstable source...\e[m"
-    sudo tee -a /etc/apt/sources.list &>/dev/null <<'EOF'
+
+echo -e "\e[32;1mAdding Firefox Debian Unstable source...\e[m"
+sudo tee -a /etc/apt/sources.list &>/dev/null <<'EOF'
 deb http://deb.debian.org/debian/ unstable main
 EOF
 
-    sudo tee -a /etc/apt/preferences.d/99firefox-unstable &>/dev/null <<'EOF'
+sudo tee -a /etc/apt/preferences.d/99firefox-unstable &>/dev/null <<'EOF'
 Package: *
 Pin: release a=stable
 Pin-Priority: 900
@@ -134,10 +126,9 @@ Pin: release a=unstable
 Pin-Priority: 10
 EOF
 
-    sudo apt -qq update && sudo apt install -y -t unstable firefox firefox-l10n-"$your_lang_deb"
+sudo apt -qq update && sudo apt install -y -t unstable firefox firefox-l10n-"$your_lang_deb"
 }
 
-### Call for Firefox Snap or ESR uninstall script.
 exec_script() {
     echo -e "Script will check if you have Firefox Snap or ESR installed and remove it."
     echo -e "Would you like to continue the script? Type \e[33;1mY\e[m to continue or \e[33;1mN\e[m to exit\n"
@@ -195,7 +186,6 @@ func_auto() {
     esac
 }
 
-### Check Ubuntu/Flavours 22.04, 23.10, 24.04 and Debian Stable or Testing and start exec.
 if [[ $version_check =~ ^(noble|mantic|jammy|trixie|bookworm)$ ]]; then
     func_auto
 else
