@@ -1,4 +1,4 @@
-<h2>Download and install Firefox Release on Ubuntu 22.04, 23.10, 24.04 and Debian Stable or Testing</h2>
+<h2>Download and install Firefox Release on Ubuntu LTS and Debian Stable or Testing</h2>
 
 <p align="center">
     <img alt="License" src="https://img.shields.io/badge/License-GPLv3-blue.svg?style=for-the-badge">
@@ -20,7 +20,7 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 <p align="center">Made with 💝 for <img src=".github/tux.png" align="top" width="18" /></p>
 
 > [!WARNING] 
-> This script only supports LTS versions of Ubuntu and only the latest point release (23.10 `mantic`). In addition, Debian is not supported on Oldstable either.
+> This script *only* supports LTS versions of Ubuntu. In addition, Debian is not supported on Oldstable either.
 
 > [!IMPORTANT] 
 >In case of errors please report them in the Issues tab for future correction.
