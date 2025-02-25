@@ -8,7 +8,7 @@
 ## LICENSE:
 ###		  GPLv3. <https://github.com/ciro-mota/firefox-desnap/blob/main/LICENSE>
 ## CHANGELOG:
-### 		Last Update: 13/05/2024. <https://github.com/ciro-mota/firefox-desnap/commits/main>
+### 		Last Update: 25/02/2025. <https://github.com/ciro-mota/firefox-desnap/commits/main>
 
 your_lang="$(locale | head -1 | sed -e 's/LANG=//' -e 's/.UTF-8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
 your_lang_deb="$(locale -a | tail -1 | sed -e 's/.utf8$//' -e 's/_/-/' | awk '{print tolower($0)}')"
@@ -186,7 +186,7 @@ func_auto() {
     esac
 }
 
-if [[ $version_check =~ ^(noble|mantic|jammy|trixie|bookworm)$ ]]; then
+if [[ $version_check =~ ^(noble|jammy|trixie|bookworm)$ ]]; then
     func_auto
 else
     echo -e "\e[31;1mDistro not supported by this script.\e[m"
