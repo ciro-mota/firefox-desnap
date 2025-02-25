@@ -20,7 +20,7 @@ This script can also install Firefox latest on Debian Stable or Testing, which u
 <p align="center">Made with 💝 for <img src=".github/tux.png" align="top" width="18" /></p>
 
 > [!WARNING] 
-> This script *only* supports LTS versions of Ubuntu. In addition, Debian is not supported on Oldstable either.
+> This script **only** supports LTS versions of Ubuntu. In addition, Debian is not supported on Oldstable either.
 
 > [!IMPORTANT] 
 >In case of errors please report them in the Issues tab for future correction.
